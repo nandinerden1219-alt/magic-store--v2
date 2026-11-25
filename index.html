@@ -223,18 +223,8 @@ img{max-width:100%}
 .faq-more{display:none;margin:var(--sp-5) auto 0}
 
 /* ---------- ЗАХИАЛГА: v1-ийн маягт ---------- */
-.order-grid{display:grid;gap:clamp(20px,3vw,32px)}
+.order-grid{max-width:680px;margin:0 auto;display:grid;gap:clamp(20px,3vw,32px)}
 .order-copy{display:grid;gap:18px;justify-items:start}
-/* desktop: маягтын талбарууд 3 баганаар хажуу тийш */
-@media (min-width:901px){
-  #orderForm{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:16px}
-  #orderForm .row2{display:contents}
-  #orderForm [data-f="dir"],#orderForm .send,#orderForm .form-error,#orderForm .form-note{grid-column:1/-1}
-  #orderForm [data-f="name"]{order:1}#orderForm [data-f="phone"]{order:2}#orderForm .field:has(.seg){order:3}
-  #orderForm [data-f="loc"]{order:4}#orderForm [data-f="dist"]{order:5}#orderForm .field:has(#addr){order:6}
-  #orderForm .field:has(textarea){order:7;grid-column:span 2}#orderForm [data-f="captcha"]{order:8}
-  #orderForm .send{order:9}#orderForm .form-error{order:10}#orderForm .form-note{order:11}
-}
 .form-card{background:#fff;border-radius:28px;padding:clamp(22px,3.4vw,40px);box-shadow:inset 0 0 0 1px var(--line),0 40px 80px -50px rgba(40,13,56,.4)}
 .field{display:grid;gap:9px;margin-bottom:20px}
 .field>.lbl{font-weight:700;font-size:15.5px}
@@ -264,6 +254,21 @@ textarea.big{height:auto;min-height:92px;padding:16px 22px;resize:vertical;line-
 .pre-wrap{position:relative}
 .pre-wrap .pre{position:absolute;left:20px;top:50%;transform:translateY(-50%);font-weight:600;color:var(--ink-2);pointer-events:none}
 .pre-wrap .big{padding-left:70px}
+.q-top{display:flex;align-items:center;min-height:28px;margin-bottom:var(--sp-2)}
+.q-back{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:15px;color:var(--ink-2)}
+.q-back:hover{color:var(--brand)}
+.q-back[hidden]{display:none}
+.q-count{margin-left:auto;font-size:14px;font-weight:700;color:var(--ink-2)}
+.q-bar{height:6px;margin-bottom:var(--sp-5);border-radius:6px;background:var(--lav);overflow:hidden}
+.q-bar i{display:block;width:20%;height:100%;border-radius:6px;background:var(--brand);transition:width .4s var(--ease)}
+.qstep{animation:qin .45s var(--ease) both}
+.qstep[hidden]{display:none}
+@keyframes qin{from{opacity:0;transform:translateX(16px)}}
+.q-title{display:block;margin-bottom:var(--sp-4);font-size:clamp(22px,3vw,30px);font-weight:700;line-height:1.2;letter-spacing:-.02em}
+.q-title small{margin-left:6px;font-size:15px;font-weight:500;letter-spacing:0;color:var(--ink-2)}
+.q-next{display:inline-flex;align-items:center;gap:10px;height:56px;margin-top:var(--sp-2);padding:0 var(--sp-6);border-radius:16px;background:var(--brand);color:#fff;font-weight:700;font-size:16px;transition:background .3s,transform .2s}
+.q-next:hover{background:var(--deep)}
+.q-next:active{transform:scale(.98)}
 .err{display:none;font-size:13.5px;font-weight:700;color:var(--err)}
 .field.invalid .err{display:block}
 .field.invalid .big{box-shadow:inset 0 0 0 1.5px var(--err)}
@@ -341,6 +346,7 @@ textarea.big{height:auto;min-height:92px;padding:16px 22px;resize:vertical;line-
   .row2--keep .chev{right:6px;width:28px;height:28px}
 }
 @media (max-width:640px){
+  .q-next{width:100%;justify-content:center;height:52px}
   .form-card{padding:18px 14px;border-radius:24px}
   .field{gap:6px;margin-bottom:12px}
   .field>.lbl{font-size:14.5px}
@@ -486,68 +492,87 @@ textarea.big{height:auto;min-height:92px;padding:16px 22px;resize:vertical;line-
     </div>
     <div class="form-card" data-s style="--i:1">
       <form id="orderForm" novalidate>
-        <div class="field" data-f="dir">
-          <span class="lbl" id="dirLbl">Юу сонирхож байна вэ?</span>
-          <div class="chips" role="radiogroup" aria-labelledby="dirLbl">
+        <div class="q-top"><button type="button" class="q-back" hidden><i aria-hidden="true" class="ph-bold ph-arrow-left"></i>Буцах</button><span class="q-count" id="qCount" aria-live="polite">1 / 5</span></div>
+        <div class="q-bar" aria-hidden="true"><i id="qBar"></i></div>
+
+        <div class="qstep">
+          <div class="field" data-f="dir">
+            <span class="q-title" id="dirLbl">Юу сонирхож байна вэ?</span>
+            <div class="chips" role="radiogroup" aria-labelledby="dirLbl">
             <div class="chip"><input type="radio" name="direction" id="d1" value="place" required><label for="d1"><i aria-hidden="true" class="ph ph-map-pin"></i>Байршуулах</label></div>
             <div class="chip"><input type="radio" name="direction" id="d2" value="rent"><label for="d2"><i aria-hidden="true" class="ph ph-key"></i>Түрээслэх</label></div>
             <div class="chip"><input type="radio" name="direction" id="d3" value="franchise"><label for="d3"><i aria-hidden="true" class="ph ph-handshake"></i>Франчайз</label></div>
           </div>
-          <span class="err">Аль нэгийг нь сонгоно уу.</span>
+            <span class="err">Аль нэгийг нь сонгоно уу.</span>
+          </div>
         </div>
-        <div class="row2">
-          <div class="field" data-f="name"><label class="lbl" for="name">Нэр</label><input class="big" id="name" name="fullName" autocomplete="name" required><span class="err">Нэрээ оруулна уу.</span></div>
+
+        <div class="qstep" hidden>
+          <div class="field" data-f="name"><label class="q-title" for="name">Таны нэр хэн бэ?</label><input class="big" id="name" name="fullName" autocomplete="name" required><span class="err">Нэрээ оруулна уу.</span></div>
+          <button type="button" class="q-next">Үргэлжлүүлэх <i aria-hidden="true" class="ph-bold ph-arrow-right"></i></button>
+        </div>
+
+        <div class="qstep" hidden>
           <div class="field" data-f="phone">
-            <label class="lbl" for="phone">Утасны дугаар</label>
+            <label class="q-title" for="phone">Утасны дугаар?</label>
             <div class="pre-wrap"><span class="pre" aria-hidden="true">+976</span><input class="big" id="phone" name="phone" type="tel" placeholder="8811 2233" inputmode="numeric" autocomplete="tel-national" required></div>
             <span class="err">8 оронтой дугаар оруулна уу.</span>
           </div>
+          <button type="button" class="q-next">Үргэлжлүүлэх <i aria-hidden="true" class="ph-bold ph-arrow-right"></i></button>
         </div>
-        <div class="row2 row2--keep">
-          <div class="field" data-f="loc">
-            <label class="lbl" for="city">Хот / аймаг</label>
-            <div class="sel-wrap">
-              <select class="big" id="city" name="city" required>
+
+        <div class="qstep" hidden>
+          <span class="q-title">Хаана байрлуулах вэ?</span>
+          <div class="row2 row2--keep">
+            <div class="field" data-f="loc">
+              <label class="lbl" for="city">Хот / аймаг</label>
+              <div class="sel-wrap">
+                <select class="big" id="city" name="city" required>
                 <option value="">Сонгоно уу</option>
                 <option>Улаанбаатар</option><option>Архангай</option><option>Баян-Өлгий</option><option>Баянхонгор</option><option>Булган</option><option>Говь-Алтай</option><option>Говьсүмбэр</option><option>Дархан-Уул</option><option>Дорноговь</option><option>Дорнод</option><option>Дундговь</option><option>Завхан</option><option>Орхон</option><option>Өвөрхангай</option><option>Өмнөговь</option><option>Сүхбаатар</option><option>Сэлэнгэ</option><option>Төв</option><option>Увс</option><option>Ховд</option><option>Хөвсгөл</option><option>Хэнтий</option>
               </select>
-              <span class="chev" aria-hidden="true"><i aria-hidden="true" class="ph-bold ph-caret-down"></i></span>
+                <span class="chev" aria-hidden="true"><i aria-hidden="true" class="ph-bold ph-caret-down"></i></span>
+              </div>
+              <span class="err">Хот эсвэл аймгаа сонгоно уу.</span>
             </div>
-            <span class="err">Хот эсвэл аймгаа сонгоно уу.</span>
-          </div>
-          <div class="field" data-f="dist">
-            <label class="lbl" for="dist" id="distLbl">Дүүрэг</label>
-            <div class="sel-wrap" id="distSel">
-              <select class="big" id="dist" name="district" disabled>
+            <div class="field" data-f="dist">
+              <label class="lbl" for="dist" id="distLbl">Дүүрэг</label>
+              <div class="sel-wrap" id="distSel">
+                <select class="big" id="dist" name="district" disabled>
                 <option value="">Сонгоно уу</option>
                 <option>Баянгол</option><option>Баянзүрх</option><option>Сүхбаатар</option><option>Хан-Уул</option><option>Чингэлтэй</option><option>Сонгинохайрхан</option><option>Налайх</option><option>Багануур</option><option>Багахангай</option>
               </select>
-              <span class="chev" aria-hidden="true"><i aria-hidden="true" class="ph-bold ph-caret-down"></i></span>
+                <span class="chev" aria-hidden="true"><i aria-hidden="true" class="ph-bold ph-caret-down"></i></span>
+              </div>
+              <input class="big" id="sum" name="district" autocomplete="off" placeholder="Сум, багийн нэр" aria-labelledby="distLbl" hidden disabled>
+              <span class="err">Дүүргээ сонгоно уу.</span>
             </div>
-            <input class="big" id="sum" name="district" autocomplete="off" placeholder="Сум, багийн нэр" aria-labelledby="distLbl" hidden disabled>
-            <span class="err">Дүүргээ сонгоно уу.</span>
           </div>
+          <button type="button" class="q-next">Үргэлжлүүлэх <i aria-hidden="true" class="ph-bold ph-arrow-right"></i></button>
         </div>
-        <div class="field">
-          <label class="lbl" for="addr">Дэлгэрэнгүй хаяг <span class="opt">заавал биш</span></label>
-          <input class="big" id="addr" name="address" autocomplete="street-address" placeholder="Байр, байгууллага, давхар, тоот">
-        </div>
-        <div class="field">
-          <span class="lbl" id="typeLbl">Хэлбэр</span>
-          <div class="seg" role="radiogroup" aria-labelledby="typeLbl">
-            <input type="radio" name="type" id="t1" value="person" checked><label for="t1">Хувь хүн</label>
-            <input type="radio" name="type" id="t2" value="org"><label for="t2">Байгууллага</label>
+
+        <div class="qstep" hidden>
+          <span class="q-title">Сүүлчийн алхам <small>нэмэлт мэдээлэл заавал биш</small></span>
+          <div class="field">
+            <span class="lbl" id="typeLbl">Хэлбэр</span>
+            <div class="seg" role="radiogroup" aria-labelledby="typeLbl">
+              <input type="radio" name="type" id="t1" value="person" checked><label for="t1">Хувь хүн</label>
+              <input type="radio" name="type" id="t2" value="org"><label for="t2">Байгууллага</label>
+            </div>
           </div>
+          <div class="field">
+            <label class="lbl" for="addr">Дэлгэрэнгүй хаяг</label>
+            <input class="big" id="addr" name="address" autocomplete="street-address" placeholder="Байр, байгууллага, давхар, тоот">
+          </div>
+          <div class="field">
+            <label class="lbl" for="note">Нэмэлт мэдээлэл</label>
+            <textarea class="big" id="note" name="note" rows="2" placeholder="Асуулт, хүсэлт байвал бичнэ үү"></textarea>
+          </div>
+          <div class="field" data-f="captcha"><div id="cfBox"></div><span class="err">Та робот биш гэдгээ баталгаажуулна уу.</span></div>
+          <button class="send" type="submit">Илгээх <i aria-hidden="true" class="ph-bold ph-arrow-right"></i></button>
+          <p class="form-error" id="formError" role="alert">Илгээхэд алдаа гарлаа. Дахин оролдоно уу.</p>
+          <p class="form-note">Таны мэдээллийг зөвхөн холбогдох зорилгоор ашиглана.</p>
         </div>
-        <div class="field">
-          <label class="lbl" for="note">Нэмэлт мэдээлэл <span class="opt">заавал биш</span></label>
-          <textarea class="big" id="note" name="note" rows="2" placeholder="Асуулт, хүсэлт байвал бичнэ үү"></textarea>
-        </div>
-        <!-- shortcut: туршилтын site key (үргэлж давна), нийтлэхээс өмнө Cloudflare Turnstile-ийн бодит site key-ээр солих -->
-        <div class="field" data-f="captcha"><div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" data-size="flexible" data-callback="captchaOk"></div><span class="err">Та робот биш гэдгээ баталгаажуулна уу.</span></div>
-        <button class="send" type="submit">Илгээх <i aria-hidden="true" class="ph-bold ph-arrow-right"></i></button>
-        <p class="form-error" id="formError" role="alert">Илгээхэд алдаа гарлаа. Дахин оролдоно уу.</p>
-        <p class="form-note">Таны мэдээллийг зөвхөн холбогдох зорилгоор ашиглана.</p>
       </form>
       <div class="ok-box" id="okBox" role="status" tabindex="-1"><div class="ok"><i aria-hidden="true" class="ph-bold ph-check"></i></div><b>Хүсэлт хүлээн авлаа</b><p>Бид удахгүй тантай холбогдох болно.</p></div>
     </div>
@@ -594,6 +619,7 @@ textarea.big{height:auto;min-height:92px;padding:16px 22px;resize:vertical;line-
    https://challenges.cloudflare.com/turnstile/v0/siteverify дээр шалгах ёстой.
    ========================================================= */
 const FORM_ENDPOINT = '';
+const TURNSTILE_SITE_KEY = '1x00000000000000000000AA'; // shortcut: туршилтын key (үргэлж давна), нийтлэхээс өмнө бодит key-ээр солих
 function captchaOk(){ document.querySelector('[data-f="captcha"]').classList.remove('invalid'); }
 
 addEventListener('DOMContentLoaded', () => {
@@ -648,7 +674,7 @@ if (!RM && window.gsap && window.ScrollTrigger) {
 } else document.documentElement.classList.add('nomo');
 
 /* ---------- Хамтрах: карт дарахад формын чиглэл сонгогдоно ---------- */
-$$('[data-dir]').forEach(a => a.addEventListener('click', () => { const r = $('#' + a.dataset.dir); if (r) { r.checked = true; r.closest('.field').classList.remove('invalid'); } }));
+$$('[data-dir]').forEach(a => a.addEventListener('click', () => { const r = $('#' + a.dataset.dir); if (r) { r.checked = true; r.closest('.field').classList.remove('invalid'); go(1); } }));
 
 /* ---------- FAQ (accordion): бүгд хаалттай; утсан дээр эхний 5 ---------- */
 const FAQ = [...document.querySelectorAll('script[type="application/ld+json"]')].flatMap(s => { try { return JSON.parse(s.textContent).mainEntity || []; } catch(e){ return []; } }).map(q => [q.name, q.acceptedAnswer.text]);
@@ -671,11 +697,31 @@ form.city.addEventListener('change', () => { // УБ бол дүүрэг сон�
   $('#distLbl').textContent = ub ? 'Дүүрэг' : 'Сум';
   $('#distLbl').htmlFor = ub ? 'dist' : 'sum';
 });
+/* ---------- чат шиг форм: нэг удаад нэг асуулт ---------- */
+const steps = $$('.qstep', form), total = steps.length; let qi = 0, capDone = false;
+const checks = [() => mark('dir', !!form.direction.value), () => mark('name', form.fullName.value.trim().length > 1), () => mark('phone', /^\d{8}$/.test(form.phone.value)), () => [mark('loc', !!form.city.value), mark('dist', !ubOn() || !!$('#dist').value)].every(Boolean)];
+const renderCaptcha = () => { // Turnstile-ийг сүүлийн алхам харагдахад л зурна (нуугдсан хэсэгт өргөн нь 0 болдог)
+  if (capDone) return;
+  const t = () => { if (!window.turnstile) return false; window.turnstile.render('#cfBox', { sitekey:TURNSTILE_SITE_KEY, size:'flexible', callback:captchaOk }); capDone = true; return true; };
+  if (!t()) { const iv = setInterval(() => { if (t()) clearInterval(iv); }, 300); setTimeout(() => clearInterval(iv), 10000); }
+};
+const go = (i, focus = true) => {
+  qi = i; steps.forEach((st, k) => { st.hidden = k !== i; });
+  $('#qBar').style.width = (i + 1) / total * 100 + '%'; $('#qCount').textContent = `${i + 1} / ${total}`; $('.q-back').hidden = i === 0;
+  if (i === total - 1) renderCaptcha();
+  if (focus) steps[i].querySelector('input:not([type=radio]):not([hidden]),select:not([disabled])')?.focus();
+};
+const next = () => { if (checks[qi] && !checks[qi]()) { steps[qi].querySelector('.invalid input,.invalid select')?.focus(); return; } go(qi + 1); };
+$$('.q-next').forEach(b => b.addEventListener('click', next));
+$('.q-back').addEventListener('click', () => go(qi - 1));
+form.addEventListener('keydown', e => { if (e.key === 'Enter' && qi < total - 1 && e.target.tagName !== 'BUTTON') { e.preventDefault(); next(); } });
+$$('.chip label').forEach(l => l.addEventListener('click', () => setTimeout(() => { if (form.direction.value && qi === 0) go(1); }, 200))); // чиглэл сонгоход дараагийн асуулт руу
 form.addEventListener('submit', async e => {
   e.preventDefault();
   $('#formError').classList.remove('show');
-  const ok = [mark('dir', !!form.direction.value), mark('name', form.fullName.value.trim().length > 1), mark('phone', /^\d{8}$/.test(form.phone.value)), mark('loc', !!form.city.value), mark('dist', !ubOn() || !!$('#dist').value), mark('captcha',!!form['cf-turnstile-response']?.value)].every(Boolean);
-  if (!ok) { form.querySelector('.invalid input,.invalid select')?.focus(); return; }
+  const bad = checks.map(c => c()).indexOf(false);
+  if (bad > -1) { go(bad); return; }
+  if (!mark('captcha', !!form['cf-turnstile-response']?.value)) return;
   const btn = form.querySelector('.send'); btn.disabled = true; btn.firstChild.textContent = 'Илгээж байна ';
   const data = Object.fromEntries(new FormData(form)); data.page = location.href; data.sentAt = new Date().toISOString();
   try {
