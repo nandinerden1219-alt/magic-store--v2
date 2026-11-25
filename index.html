@@ -168,24 +168,19 @@ img{max-width:100%}
 .mc-cats button{flex:none;height:48px;font-size:16px;font-weight:700;color:var(--ink-2);box-shadow:inset 0 -3px 0 transparent;transition:color .25s,box-shadow .25s}
 .mc-cats button:hover{color:var(--ink)}
 .mc-cats button[aria-pressed=true]{color:var(--ink);box-shadow:inset 0 -3px 0 var(--accent)}
-.mc-stage{position:relative}
-.mc-track{--tw:clamp(130px,13vw,170px);--th:clamp(200px,21vw,270px);display:flex;gap:var(--sp-4);overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;padding:var(--sp-5) 0 var(--sp-3)}
-.mc-tile{flex:none;width:var(--tw);display:grid;gap:var(--sp-3);justify-items:start;text-align:left;contain:layout paint}
-.mc-tile.on .mc-code{color:var(--logo);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px}
-.mc-art{width:100%;height:var(--th);display:grid;place-items:center;overflow:hidden}
-.mc-art img{display:block;max-width:78%;max-height:calc(var(--th) - 44px);width:auto;height:auto;object-fit:contain}
-.mc-code{font-weight:700;font-size:15px}
-.mc-arr{position:absolute;z-index:4;top:calc(var(--sp-5) + clamp(200px,21vw,270px) / 2);transform:translateY(-50%);width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:#fff;color:var(--ink);font-size:18px;box-shadow:0 0 0 1px var(--line),0 8px 20px -8px rgba(40,13,56,.3);transition:background .25s,color .25s,opacity .25s}
-.mc-prev{left:var(--sp-2)}.mc-next{right:var(--sp-2)}
-.mc-arr:hover{background:var(--accent);color:#fff}
-.mc-arr:disabled{opacity:0;pointer-events:none}
-.mc-pop{position:absolute;z-index:6;width:min(360px,100%);display:grid;gap:var(--sp-3);padding:var(--sp-4) var(--sp-5);border-radius:var(--r-m);background:#fff;color:var(--ink);box-shadow:0 0 0 1px var(--line),0 18px 40px -18px rgba(40,13,56,.35);pointer-events:none}
-.mc-pop[hidden]{display:none}
-.mc-pop.pin{pointer-events:auto}
-.mc-pop h3{font-size:19px;font-weight:700;line-height:1.15;letter-spacing:-.03em;padding-right:36px}
-.mc-pop .mc-kind{font-size:14px;color:var(--ink-2)}
-.mc-x{position:absolute;top:var(--sp-3);right:var(--sp-3);width:36px;height:36px;border-radius:50%;box-shadow:inset 0 0 0 1px var(--line);font-size:20px;line-height:1;display:none}
-.mc-pop.pin .mc-x{display:block}
+.mc-split{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);gap:var(--sp-6);margin-top:var(--sp-5);align-items:start}
+.mc-list{position:relative;display:grid;gap:var(--sp-2);max-height:min(560px,70svh);overflow-y:auto;overscroll-behavior:contain;padding:2px var(--sp-2) 2px 2px;scrollbar-width:thin}
+.mc-item{display:grid;grid-template-columns:64px minmax(0,1fr);gap:var(--sp-3);align-items:center;padding:var(--sp-2) var(--sp-3);border-radius:var(--r-m);text-align:left;transition:background .25s,box-shadow .25s}
+.mc-item:hover{background:var(--lav)}
+.mc-item[aria-selected=true]{background:var(--lav);box-shadow:inset 0 0 0 2px var(--brand)}
+.mc-item img{display:block;width:64px;height:80px;object-fit:contain}
+.mc-item b{display:block;font-size:16px;font-weight:700;line-height:1.25}
+.mc-item small{display:block;font-size:14px;line-height:1.3;color:var(--ink-2)}
+.mc-detail{display:grid;gap:var(--sp-4);align-content:start;min-height:360px;padding-left:var(--sp-6);border-left:1px solid var(--line)}
+.mc-detail-top{display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:var(--sp-5);align-items:center}
+.mc-detail-top img{display:block;width:100%;max-height:300px;object-fit:contain}
+.mc-detail h3{font-size:clamp(24px,2.6vw,34px);font-weight:700;line-height:1.1;letter-spacing:-.03em}
+.mc-kind{margin-top:var(--sp-2);color:var(--ink-2)}
 .mc-ico,.mc-heat{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-3) var(--sp-5)}
 .mc-ico img,.mc-heat img{display:block;height:34px;width:auto}
 .mc-heat div{display:flex;align-items:center;gap:var(--sp-3);font-size:13px;line-height:1.3;color:var(--ink-2)}
@@ -307,6 +302,10 @@ textarea.big{height:auto;min-height:92px;padding:16px 22px;resize:vertical;line-
   .links a{padding:var(--sp-2) var(--sp-3)}
 }
 @media (max-width:900px){
+  .mc-split{grid-template-columns:1fr}
+  .mc-list{grid-auto-flow:column;grid-auto-columns:minmax(210px,72%);max-height:none;overflow-x:auto;overflow-y:hidden;padding:2px 2px var(--sp-2)}
+  .mc-detail{min-height:0;padding-left:0;border-left:0;padding-top:var(--sp-5);border-top:1px solid var(--line)}
+  .mc-detail-top{grid-template-columns:110px minmax(0,1fr)}
   .what-copy{max-width:100%}
   #what{align-items:start}
   #what .what-in{padding-top:var(--sp-6)}
@@ -333,10 +332,6 @@ textarea.big{height:auto;min-height:92px;padding:16px 22px;resize:vertical;line-
   .pt-place{grid-template-columns:1fr;gap:var(--sp-4);padding:var(--sp-5)}
   .pt-card{min-height:0;grid-template-columns:auto 1fr;align-items:center}
   .kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-5) var(--sp-4)}
-  .mc-arr{display:none}
-  .mc-track{--tw:clamp(140px,44vw,200px);--th:clamp(230px,66vw,320px)}
-  .mc-pop{position:fixed;left:var(--sp-3);right:var(--sp-3);bottom:var(--sp-3);top:auto!important;width:auto;max-height:78svh;overflow:auto;pointer-events:auto;box-shadow:0 0 0 1px var(--line),0 -10px 50px -10px rgba(40,13,56,.45)}
-  .mc-x{display:block}
 }
 @media (max-width:900px){
   .row2{grid-template-columns:1fr;gap:0} /* .field-ийн margin-bottom зай гаргана */
@@ -466,11 +461,9 @@ textarea.big{height:auto;min-height:92px;padding:16px 22px;resize:vertical;line-
   <div class="wrap">
     <h2 class="h2" data-s style="--i:0">Бүтээгдэхүүн</h2>
     <div class="mc-bar" data-s style="--i:1"><div class="mc-cats" id="mcCats" role="group" aria-label="Машины төрөл"></div></div>
-    <div class="mc-stage" id="mcStage" data-s style="--i:2">
-      <button type="button" class="mc-arr mc-prev" data-d="-1" aria-label="Өмнөх"><i class="ph-bold ph-caret-left" aria-hidden="true"></i></button>
-      <button type="button" class="mc-arr mc-next" data-d="1" aria-label="Дараах"><i class="ph-bold ph-caret-right" aria-hidden="true"></i></button>
-      <div class="mc-track" id="mcTrack" role="group" aria-label="Машинууд"></div>
-      <div class="mc-pop" id="mcPop" role="dialog" aria-label="Машины үзүүлэлт" hidden></div>
+    <div class="mc-split" data-s style="--i:2">
+      <div class="mc-list" id="mcList" role="listbox" aria-label="Машинууд"></div>
+      <div class="mc-detail" id="mcDetail" aria-live="polite"></div>
     </div>
   </div>
 </section>
@@ -762,67 +755,29 @@ const MC = [
 ];
 const MC_ICO = [['snow', 'Хөргөлт'], ['touch', 'Мэдрэгч дэлгэц'], ['wifi', 'Үнэгүй WiFi']]; // PDF-ийн нүүр хуудсан дээрх дүрс
 (() => {
-  const cats = $('#mcCats'), track = $('#mcTrack'), stage = $('#mcStage'), pop = $('#mcPop');
-  let cur = 0, shown = -1, started = false, timer, raf;
-  const tiles = () => [...track.children];
-  const sheet = () => !matchMedia('(hover:hover) and (min-width:901px)').matches; // утас: самбар, desktop: popover
-  const body = m => `<button type="button" class="mc-x" aria-label="Хаах">×</button><div><h3>${m.code}</h3><p class="mc-kind">${m.kind}</p></div>
+  const cats = $('#mcCats'), list = $('#mcList'), detail = $('#mcDetail');
+  let cur = -1;
+  const items = () => [...list.children];
+  const body = m => `<div class="mc-detail-top"><img src="img/machines/${m.img}.webp" alt=""><div><h3>${m.code}</h3>${m.kind ? `<p class="mc-kind">${m.kind}</p>` : ''}</div></div>
     <div class="mc-ico">${MC_ICO.map(([f, t]) => `<img src="img/icons/${f}.webp" alt="${t}" title="${t}">`).join('')}</div>
     ${m.h ? `<div class="mc-heat">${m.h.map(([f, k, v]) => `<div><img src="img/icons/${f}.webp" alt=""><span>${k}<b>${v}</b></span></div>`).join('')}</div>` : ''}
     <dl class="mc-specs">${m.r.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>${m.n ? `<p class="mc-note">${m.n}</p>` : ''}`;
-  const hide = () => { clearTimeout(timer); shown = -1; pop.hidden = true; pop.classList.remove('pin'); tiles().forEach(t => t.setAttribute('aria-expanded', 'false')); };
-  const place = t => {
-    if (sheet()) { pop.style.left = pop.style.top = ''; return; }
-    const s = stage.getBoundingClientRect(), r = t.getBoundingClientRect(), w = pop.offsetWidth;
-    let x = r.right - s.left + 12; if (x + w > s.width) x = r.left - s.left - w - 12;
-    pop.style.left = Math.max(8, x) + 'px'; pop.style.top = Math.max(8, r.top - s.top) + 'px';
+  const markCat = c => [...cats.children].forEach((b, i) => b.setAttribute('aria-pressed', i === c));
+  const pick = (i, scroll) => { // машин сонгоход баруун талд үзүүлэлт нь гарна
+    i = Math.max(0, Math.min(MC.length - 1, i)); cur = i;
+    items().forEach((b, k) => { b.setAttribute('aria-selected', k === i); b.tabIndex = k === i ? 0 : -1; });
+    detail.innerHTML = body(MC[i]); markCat(MC[i].c);
+    if (scroll) { const t = items()[i]; list.scrollTo({ top: t.offsetTop - 2, left: t.offsetLeft - 2, behavior: RM ? 'auto' : 'smooth' }); }
   };
-  const show = (i, pin) => {
-    tiles().forEach(x => x.setAttribute('aria-expanded', 'false')); shown = i;
-    const t = tiles()[i]; t.setAttribute('aria-expanded', 'true');
-    pop.innerHTML = body(MC[i]); pop.classList.toggle('pin', pin || sheet()); pop.hidden = false; place(t);
-  };
-  const catBtns = () => [...cats.children];
-  let lefts = [];
-  const measure = () => { lefts = tiles().map(t => t.offsetLeft); };
-  const update = () => { // зүүн ирмэгт хамгийн ойр машин идэвхтэй (зөвхөн солигдоход DOM хөндөнө)
-    const c = track.scrollLeft, end = track.scrollWidth - track.clientWidth - 2; let best = 0, bd = 1e9;
-    for (let i = 0; i < lefts.length; i++) { const d = Math.abs(lefts[i] - c); if (d < bd) { bd = d; best = i; } }
-    if (c >= end) best = lefts.length - 1; // төгсгөлд хүрвэл сүүлийнх
-    $('.mc-prev').disabled = c <= 2; $('.mc-next').disabled = c >= end;
-    if (best === cur && started) return;
-    started = true;
-    cur = best; const m = MC[cur];
-    tiles().forEach((t, i) => t.classList.toggle('on', i === cur));
-    catBtns().forEach((b, i) => b.setAttribute('aria-pressed', i === m.c));
-  };
-  const goTo = (i, smooth = true) => {
-    i = Math.max(0, Math.min(MC.length - 1, i));
-    track.scrollTo({ left: tiles()[i].offsetLeft, behavior: smooth && !RM ? 'smooth' : 'auto' });
-  };
-  track.innerHTML = MC.map((m, i) => `<button type="button" class="mc-tile" data-i="${i}" aria-haspopup="dialog" aria-expanded="false" aria-label="${[m.code, m.kind].filter(Boolean).join(', ')}"><span class="mc-art"><img src="img/machines/${m.img}.webp" alt="" loading="lazy"></span><span class="mc-code">${m.code}</span></button>`).join('');
+  list.innerHTML = MC.map((m, i) => `<button type="button" class="mc-item" role="option" data-i="${i}" aria-selected="false" tabindex="-1"><img src="img/machines/${m.img}.webp" alt="" loading="lazy"><span><b>${m.code}</b>${m.kind ? `<small>${m.kind}</small>` : ''}</span></button>`).join('');
   cats.innerHTML = MC_CATS.map((n, i) => `<button type="button" data-c="${i}" aria-pressed="false">${n}</button>`).join('');
-  cats.addEventListener('click', e => { const b = e.target.closest('[data-c]'); if (b) goTo(MC.findIndex(m => m.c === +b.dataset.c)); });
-  stage.addEventListener('click', e => { const b = e.target.closest('.mc-arr'); if (b) goTo(cur + +b.dataset.d); });
-  track.addEventListener('scroll', () => { if (!pop.hidden) hide(); cancelAnimationFrame(raf); raf = requestAnimationFrame(update); }, { passive: true });
-  track.addEventListener('click', e => { // товшихоор тогтоно (утас, гар), дахин товшихоор хаагдана
-    const t = e.target.closest('.mc-tile'); if (!t) return;
-    const i = +t.dataset.i; if (pop.classList.contains('pin') && shown === i) hide(); else show(i, true);
+  cats.addEventListener('click', e => { const b = e.target.closest('[data-c]'); if (b) pick(MC.findIndex(m => m.c === +b.dataset.c), true); });
+  list.addEventListener('click', e => { const b = e.target.closest('.mc-item'); if (b) pick(+b.dataset.i, false); });
+  list.addEventListener('keydown', e => {
+    const d = { ArrowDown:1, ArrowRight:1, ArrowUp:-1, ArrowLeft:-1 }[e.key];
+    if (d || e.key === 'Home' || e.key === 'End') { e.preventDefault(); pick(e.key === 'Home' ? 0 : e.key === 'End' ? MC.length - 1 : cur + d, true); items()[cur].focus({ preventScroll:true }); }
   });
-  track.addEventListener('pointerover', e => { // desktop: хулгана аль ч машин дээр очиход үзүүлэлт гарна
-    if (sheet() || pop.classList.contains('pin')) return;
-    const t = e.target.closest('.mc-tile'); if (!t) return; const i = +t.dataset.i; if (i === shown) return;
-    clearTimeout(timer); timer = setTimeout(() => show(i, false), 120);
-  });
-  track.addEventListener('pointerout', e => { if (!sheet() && !pop.classList.contains('pin')) { const t = e.target.closest('.mc-tile'); if (t && !t.contains(e.relatedTarget)) hide(); } });
-  pop.addEventListener('click', e => { if (e.target.closest('.mc-x')) hide(); });
-  document.addEventListener('click', e => { if (!pop.hidden && !e.target.closest('.mc-tile') && !pop.contains(e.target)) hide(); });
-  track.addEventListener('keydown', e => { if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); const n = Math.max(0, Math.min(MC.length - 1, cur + (e.key === 'ArrowRight' ? 1 : -1))); goTo(n); tiles()[n].focus({ preventScroll: true }); } });
-  addEventListener('keydown', e => { if (e.key === 'Escape' && !pop.hidden) hide(); });
-  // трекпад дээр хажуу тийш гүйлгэхэд хуудас доошоо гулсахаас сэргийлнэ
-  track.addEventListener('wheel', e => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) { e.preventDefault(); track.scrollLeft += e.deltaX; } }, { passive: false });
-  addEventListener('resize', () => { hide(); measure(); goTo(cur, false); update(); });
-  measure(); update(); goTo(0, false);
+  pick(0, false);
 })();
 });
 </script>
