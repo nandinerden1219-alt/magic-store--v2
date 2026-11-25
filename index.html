@@ -728,6 +728,8 @@ form.addEventListener('submit', async e => {
     if (FORM_ENDPOINT) {
       const res = await fetch(FORM_ENDPOINT, { method:'POST', headers:{ 'Content-Type':'application/json', 'Accept':'application/json' }, body: JSON.stringify(data) });
       if (!res.ok) throw new Error(res.status);
+    } else if (['localhost', '127.0.0.1', ''].includes(location.hostname)) {
+      console.info('[Magic Store] ТУРШИЛТ: хаяг тохируулаагүй тул хүсэлт хаашаа ч илгээгдсэнгүй, зөвхөн амжилттай дэлгэц харуулав:', data); // зөвхөн локал дээр
     } else {
       console.warn('[Magic Store] FORM_ENDPOINT тохируулаагүй тул хүсэлт илгээгдээгүй:', data);
       throw new Error('FORM_ENDPOINT is empty');
