@@ -63,10 +63,8 @@ ul,ol{list-style:none}
 img{max-width:100%}
 .wrap{max-width:1200px;margin:0 auto;padding:0 var(--gut)}
 .sec{padding:var(--sec) 0}
-.sec--lav{background:var(--lav)}
 .rule{padding-top:0}
 .rule>.wrap{padding-top:var(--sec);border-top:1px solid var(--line)}
-.band{margin:0 clamp(8px,1.4vw,20px);border-radius:clamp(28px,4vw,56px)}
 .h2{font-size:clamp(32px,4.6vw,60px);font-weight:700;line-height:1.08;letter-spacing:-.04em;text-wrap:balance;text-align:center}
 :focus-visible{outline:3px solid var(--purple);outline-offset:3px}
 .hero :focus-visible,.footer :focus-visible{outline-color:#fff}
@@ -199,18 +197,16 @@ img{max-width:100%}
 
 
 /* ---------- ХАМТРАХ ---------- */
-.pt{display:grid;gap:var(--sp-6);margin-top:var(--sp-6)}
-.pt-place{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:var(--sp-6);align-items:center}
+.pt{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--sp-4);margin-top:var(--sp-6)}
+.pt-place{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:var(--sp-6);align-items:center;padding:var(--sp-5) var(--sp-6);border-radius:var(--r-l);background:var(--tint);overflow:hidden}
 .pt-place h3{font-size:clamp(24px,3vw,40px);font-weight:700;line-height:1.1;letter-spacing:-.03em}
 .pt-place p{margin-top:var(--sp-3);font-size:clamp(16px,1.5vw,20px);color:var(--ink-2);max-width:28ch}
-.pt-place img{display:block;width:100%;height:auto;max-height:320px;object-fit:contain}
-.pt-rows{border-bottom:1px solid var(--line)}
-.pt-card{display:flex;align-items:center;gap:var(--sp-4);padding:var(--sp-5) 0;border-top:1px solid var(--line);text-decoration:none;transition:padding .3s var(--ease),color .3s}
-.pt-card:hover{padding-left:var(--sp-3);color:var(--brand)}
-.pt-card>i{flex:none;font-size:30px;color:var(--brand)}
-.pt-card b{flex:1;display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);font-size:clamp(20px,2.4vw,30px);font-weight:600;line-height:1.2;letter-spacing:-.025em}
-.pt-card b i{flex:none;width:40px;height:40px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-size:18px;transition:transform .3s var(--ease)}
-.pt-card:hover b i{transform:rotate(45deg)}
+.pt-place img{display:block;width:100%;height:auto;max-height:320px;object-fit:contain;mix-blend-mode:multiply}
+.pt-card{display:grid;gap:var(--sp-5);align-content:space-between;min-height:200px;padding:var(--sp-5);border-radius:var(--r-l);background:var(--tint);text-decoration:none;transition:background .3s,transform .3s var(--ease)}
+.pt-card:hover{background:#fff;box-shadow:inset 0 0 0 2px var(--accent);transform:translateY(-3px)}
+.pt-card>i{width:52px;height:52px;border-radius:var(--r-m);background:#fff;color:var(--logo);display:grid;place-items:center;font-size:26px}
+.pt-card b{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);font-size:clamp(18px,1.8vw,22px);font-weight:700;line-height:1.2;letter-spacing:-.02em}
+.pt-card b i{flex:none;width:36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:16px}
 
 /* ---------- FAQ ---------- */
 .faq{max-width:760px;margin:0 auto}
@@ -285,7 +281,7 @@ textarea.big{height:auto;min-height:92px;padding:16px 22px;resize:vertical;line-
 .ok-box p{margin-top:8px;color:var(--ink-2)}
 
 /* ---------- FOOTER ---------- */
-.footer{background:var(--foot);color:#fff;margin:clamp(8px,1.4vw,20px) clamp(8px,1.4vw,20px) clamp(8px,1.4vw,20px);border-radius:clamp(28px,4vw,56px)}
+.footer{background:var(--foot);color:#fff}
 .ft-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--sp-5) var(--sp-7);padding:var(--sp-7) 0 var(--sp-5)}
 .ft-brand{display:flex;align-items:center;gap:var(--sp-5)}
 .ft-social{display:flex;gap:var(--sp-2)}
@@ -328,7 +324,9 @@ textarea.big{height:auto;min-height:92px;padding:16px 22px;resize:vertical;line-
   .hb-l>span{display:inline}
   .hb-l>span+span::before{content:" "}
   .hero-vm{grid-column:1;grid-row:auto}
-  .pt-place{grid-template-columns:1fr;gap:var(--sp-4)}
+  .pt{grid-template-columns:1fr}
+  .pt-place{grid-template-columns:1fr;gap:var(--sp-4);padding:var(--sp-5)}
+  .pt-card{min-height:0;grid-template-columns:auto 1fr;align-items:center}
   .kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-5) var(--sp-4)}
   .mc-arr{display:none}
   .mc-track{--tw:clamp(140px,44vw,200px);--th:clamp(230px,66vw,320px)}
@@ -376,8 +374,8 @@ textarea.big{height:auto;min-height:92px;padding:16px 22px;resize:vertical;line-
     <ul class="links" id="links">
       <li><a href="#why" data-sec="why">Давуу тал</a></li>
       <li><a href="#vms" data-sec="vms">Программ хангамж</a></li>
-      <li><a href="#products" data-sec="products">Бүтээгдэхүүн</a></li>
       <li><a href="#partner" data-sec="partner">Хамтрах</a></li>
+      <li><a href="#products" data-sec="products">Бүтээгдэхүүн</a></li>
       <li><a href="#faq" data-sec="faq">Асуулт</a></li>
     </ul>
     <a href="#contact" class="btn btn--solid">Захиалга өгөх</a>
@@ -441,20 +439,6 @@ textarea.big{height:auto;min-height:92px;padding:16px 22px;resize:vertical;line-
   </div>
 </section>
 
-<!-- ================= БҮТЭЭГДЭХҮҮН ================= -->
-<section class="sec sec--lav band" id="products">
-  <div class="wrap">
-    <h2 class="h2" data-s style="--i:0">Бүтээгдэхүүн</h2>
-    <div class="mc-bar" data-s style="--i:1"><div class="mc-cats" id="mcCats" role="group" aria-label="Машины төрөл"></div></div>
-    <div class="mc-stage" id="mcStage" data-s style="--i:2">
-      <button type="button" class="mc-arr mc-prev" data-d="-1" aria-label="Өмнөх"><i class="ph-bold ph-caret-left" aria-hidden="true"></i></button>
-      <button type="button" class="mc-arr mc-next" data-d="1" aria-label="Дараах"><i class="ph-bold ph-caret-right" aria-hidden="true"></i></button>
-      <div class="mc-track" id="mcTrack" role="group" aria-label="Машинууд"></div>
-      <div class="mc-pop" id="mcPop" role="dialog" aria-label="Машины үзүүлэлт" hidden></div>
-    </div>
-  </div>
-</section>
-
 <!-- ================= ХАМТРАХ ================= -->
 <section class="sec rule" id="partner">
   <div class="wrap">
@@ -464,11 +448,23 @@ textarea.big{height:auto;min-height:92px;padding:16px 22px;resize:vertical;line-
         <div><h3>Хаана ч байрших боломжтой</h3><p>Зай талбайн зөв ашиглалт: ердөө 2 м² талбай хангалттай.</p></div>
         <img src="img/plan.webp" width="1040" height="710" alt="2 м² талбайд байршуулсан Magic Store-ийн байрны зураг" loading="lazy">
       </div>
-      <div class="pt-rows">
       <a class="pt-card" href="#contact" data-dir="d1"><i class="ph ph-map-pin" aria-hidden="true"></i><b>Автомат машин суурилуулах<i class="ph-bold ph-arrow-up-right" aria-hidden="true"></i></b></a>
       <a class="pt-card" href="#contact" data-dir="d2"><i class="ph ph-key" aria-hidden="true"></i><b>Түрээсийн үйлчилгээ<i class="ph-bold ph-arrow-up-right" aria-hidden="true"></i></b></a>
       <a class="pt-card" href="#contact"><i class="ph ph-monitor-play" aria-hidden="true"></i><b>Сурталчилгаа байршуулах<i class="ph-bold ph-arrow-up-right" aria-hidden="true"></i></b></a>
-      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= БҮТЭЭГДЭХҮҮН ================= -->
+<section class="sec rule" id="products">
+  <div class="wrap">
+    <h2 class="h2" data-s style="--i:0">Бүтээгдэхүүн</h2>
+    <div class="mc-bar" data-s style="--i:1"><div class="mc-cats" id="mcCats" role="group" aria-label="Машины төрөл"></div></div>
+    <div class="mc-stage" id="mcStage" data-s style="--i:2">
+      <button type="button" class="mc-arr mc-prev" data-d="-1" aria-label="Өмнөх"><i class="ph-bold ph-caret-left" aria-hidden="true"></i></button>
+      <button type="button" class="mc-arr mc-next" data-d="1" aria-label="Дараах"><i class="ph-bold ph-caret-right" aria-hidden="true"></i></button>
+      <div class="mc-track" id="mcTrack" role="group" aria-label="Машинууд"></div>
+      <div class="mc-pop" id="mcPop" role="dialog" aria-label="Машины үзүүлэлт" hidden></div>
     </div>
   </div>
 </section>
@@ -483,7 +479,7 @@ textarea.big{height:auto;min-height:92px;padding:16px 22px;resize:vertical;line-
 </section>
 
 <!-- ================= ЗАХИАЛГА ================= -->
-<section class="sec sec--lav band" id="contact">
+<section class="sec rule" id="contact">
   <div class="wrap order-grid">
     <div class="order-copy" data-s style="--i:0">
       <h2 class="h2">Захиалга өгөх</h2>
@@ -571,8 +567,8 @@ textarea.big{height:auto;min-height:92px;padding:16px 22px;resize:vertical;line-
         <ul class="ft-links">
           <li><a href="#why">Давуу тал</a></li>
           <li><a href="#vms">Программ хангамж</a></li>
-          <li><a href="#products">Бүтээгдэхүүн</a></li>
           <li><a href="#partner">Хамтрах</a></li>
+          <li><a href="#products">Бүтээгдэхүүн</a></li>
           <li><a href="#faq">Түгээмэл асуулт</a></li>
           <li><a href="#contact">Захиалга өгөх</a></li>
         </ul>
